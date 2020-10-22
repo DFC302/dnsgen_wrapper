@@ -123,8 +123,16 @@ function _dnsgen() {
 
 		# If file size hits or manages to go over a little maxsize
 		if [[ ${actualSize} -ge ${maxSize} ]] ; then
-			echo -e "Max file size reached!"
-			exit
+
+			if [[ ${no_color} -eq 1 ]] ; then
+				echo -e "\nMax file size reached!\n"
+				exit
+
+			elif [[ ${no_color} -ne 1 ]] ; then
+				echo -e "${orange}\nMax file size reached!\n${nc}"
+				exit
+
+			fi
 
 		# If user has verbose mode enabled, display all alterations
 		elif [[ ${verbose} -eq 1 ]] ; then
@@ -227,3 +235,4 @@ elif [[ ${f} && ${o} && ${s} ]] ; then
 	_dnsgen
 
 fi
+			
