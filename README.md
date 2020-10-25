@@ -6,6 +6,8 @@ You can find dnsgen [here](https://github.com/ProjectAnte/dnsgen)
 # Description
 I built this because I use DNSgen quite often. However, due to limited space, sometimes the alterations file can be extremely large. To help combat this issue I created this wrapper that will allow the user to set a max file size limit on the file. The wrapper will continuously check the file size and once the max limit is reached, it will stop dnsgen altogether. Of course this may result in some alterations from never happening, but it also helps protect devices with smaller hard drive space, from being over loaded.
 
+**You may need to ctrl+z to fully stop the script. In some test cases, ctrl+c was enough, while others, ctrl+z was needed.**
+
 # Usage
 ```
 [ usage ]: dnsgen_wrapper.sh -f [filename] -o [outfile] -s [size limit in MB]
