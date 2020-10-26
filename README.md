@@ -16,12 +16,15 @@ You can edit your dnsgen command on lines 180 and 184.
 [ usage ]: dnsgen_wrapper.sh -f [filename] -o [outfile] -s [size limit in MB]
 
 optional arguments:
-        -h              Show this help message and exit.
-        -f              Specify file name full of URLs.
-        -o              Specify file to write results to.
-        -s              Specify Max file size limit in MB.
-        -v              Turn on verbose mode.
-        -n              Turn off color mode.
+	-h		Show this help message and exit.
+	-f		Specify file name full of URLs.
+	-o		Specify file to write results to.
+	-s		Specify Max file size limit in MB.
+	-u		Uniquely sort file after alternations finish.
+	-v		Turn on verbose mode.
+	-n		Turn off color mode.
+	-V		Print version information.
+
 ```
 
 # Example usage
