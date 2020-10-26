@@ -8,6 +8,9 @@ I built this because I use DNSgen quite often. However, due to limited space, so
 
 **You may need to ctrl+z to fully stop the script. In some test cases, ctrl+c was enough, while others, ctrl+z was needed.**
 
+### Special Note
+You can edit your dnsgen command on lines 180 and 184.
+
 # Usage
 ```
 [ usage ]: dnsgen_wrapper.sh -f [filename] -o [outfile] -s [size limit in MB]
