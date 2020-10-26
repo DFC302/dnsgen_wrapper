@@ -1,6 +1,8 @@
 # DNSGEN Wrapper
 A bash wrapper for dnsgen to help place a file size limit on the alterations.
 
+[![version](https://img.shields.io/badge/version-1.1.1-green.svg)](https://semver.org)
+
 You can find dnsgen [here](https://github.com/ProjectAnte/dnsgen)
 
 # Description
