@@ -38,7 +38,7 @@ bash dnsgen_wrapper.sh -f [file with domains] -o [output file] -s [max size limi
 
 ### optional arguments
 ```
--v [turn on verbose mode] || -n [turn off color mode]
+-v [turn on verbose mode] || -n [turn off color mode] || -u [uniquely sort files]
 ```
 
 ### Display help menu
