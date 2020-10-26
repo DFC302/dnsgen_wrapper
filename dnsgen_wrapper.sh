@@ -9,38 +9,29 @@ nc='\033[0m' # reset
 
 # Display help menu
 function usage() {
+	echo -e "\n"
+	echo -e "${orange}[ usage ]:${nc} ${cyan}dnsgen_wrapper.sh -f [filename] -o [outfile] -s [size limit in MB]${nc}\n"
 
-	# If user does not want color
+	echo -e "${orange}optional arguments:${nc}"
+	echo -e "\t${orange}-h${nc}\t\t${cyan}Show this help message and exit.${nc}"
+	echo -e "\t${orange}-f${nc}\t\t${cyan}Specify file name full of URLs.${nc}"
+	echo -e "\t${orange}-o${nc}\t\t${cyan}Specify file to write results to.${nc}"
+	echo -e "\t${orange}-s${nc}\t\t${cyan}Specify Max file size limit in MB.${nc}"
+	echo -e "\t${orange}-u${nc}\t\t${cyan}Uniquely sort file after alternations finish."
+	echo -e "\t${orange}-v${nc}\t\t${cyan}Turn on verbose mode.${nc}"
+	echo -e "\t${orange}-n${nc}\t\t${cyan}Turn off color mode.${nc}"
+	echo -e "\t${orange}-V${nc}\t\t${cyan}Print version information.${nc}"
+	echo -e "\n"
+
+	exit
+}
+
+function version_header() {
 	if [[ ${no_color} -ne 1 ]] ; then
-		echo -e "\n"
-		echo -e "${orange}[ usage ]:${nc} ${cyan}dnsgen_wrapper.sh -f [filename] -o [outfile] -s [size limit in MB]${nc}\n"
+		echo -e "${orange}dnsgen wrapper version:${nc} ${cyan}1.1.1${nc}"
 
-		echo -e "${orange}optional arguments:${nc}"
-		echo -e "\t${orange}-h${nc}\t\t${cyan}Show this help message and exit.${nc}"
-		echo -e "\t${orange}-f${nc}\t\t${cyan}Specify file name full of URLs.${nc}"
-		echo -e "\t${orange}-o${nc}\t\t${cyan}Specify file to write results to.${nc}"
-		echo -e "\t${orange}-s${nc}\t\t${cyan}Specify Max file size limit in MB.${nc}"
-		echo -e "\t${orange}-v${nc}\t\t${cyan}Turn on verbose mode.${nc}"
-		echo -e "\t${orange}-n${nc}\t\t${cyan}Turn off color mode.${nc}"
-		echo -e "\n"
-
-		exit
-
-	# If user does want color
 	elif [[ ${no_color} -eq 1 ]] ; then
-		echo -e "\n"
-		echo -e "[ usage ]: dnsgen_wrapper.sh -f [filename] -o [outfile] -s [size limit in MB]\n"
-
-		echo "optional arguments:"
-		echo -e "\t-h\t\tShow this help message and exit."
-		echo -e "\t-f\t\tSpecify file name full of URLs."
-		echo -e "\t-o\t\tSpecify file to write results to."
-		echo -e "\t-s\t\tSpecify Max file size limit in MB."
-		echo -e "\t-v\t\tTurn on verbose mode."
-		echo -e "\t-n\t\tTurn off color mode.${nc}"
-		echo -e "\n"
-
-		exit
+		echo -e "dnsgen wrapper version: 1.1.1"
 
 	fi
 }
@@ -95,11 +86,23 @@ function _dnsgen() {
 
 	# If verbose mode is not on and no color enabled
 	if [[ ${verbose} -ne 1 && ${no_color} -eq 1 ]] ; then
-		echo "Processing now..."
+		version_header
+		echo -e "Processing now...\n"
 
 	# If verbose mode not on and color mode is set
 	elif [[ ${verbose} -ne 1 && ${no_color} -ne 1 ]] ; then
-		echo -e "${green}Processing now...${nc}"
+		version_header
+		echo -e "${green}Processing now...\n${nc}"
+
+	# If verbose mode is on and colors are off
+	elif [[ ${verbose} -eq 1 && ${no_color} -eq 1 ]] ; then
+		version_header
+		echo -e "Processing now...\n"
+
+	# If verbose mode is on and colors are on
+	elif [[ ${verbose} -eq 1 && ${no_color} -ne 1 ]] ; then
+		version_header
+		echo -e "${green}Processing now...\n${nc}"
 
 	fi
 
@@ -111,13 +114,51 @@ function _dnsgen() {
 
 		# If verbose mode is on and no colors 
 		if [[ ${verbose} -eq 1 && ${no_color} -eq 1 ]] ; then
-			echo -e "\nActual size of file: ${actualSize}"
-			echo "Max size file limit set at: ${maxSize}"
+			echo -en "\nActual size of file: ${actualSize}MB\033[0/r"
+
+			if [[ ${actualSize} -ge 1024 ]] ; then
+				echo -en "\nActual size of file: ${actualSize}GB\033[O\r"
+
+			elif [[ ${actualsize} -ge 1000024 ]]; then
+				echo -en "\nActual size of file: ${actualSize}TB\033[O\r"
+
+			fi
 
 		# If verbose mode is on and colors on
 		elif [[ ${verbose} -eq 1 && ${no_color} -ne 1 ]] ; then
-			echo -e "\n${orange}Actual size of file:${nc} ${cyan}${actualSize}${nc}"
-			echo -e "${orange}Max size file limit set at:${nc} ${cyan}${maxSize}${nc}"
+			echo -en "\n${orange}Actual size of file:${nc} ${cyan}${actualSize}MB${nc}\033[O\r"
+
+			if [[ ${actualSize} -ge 1024 ]] ; then
+				echo -en "\n${orange}Actual size of file:${nc} ${cyan}${actualSize}GB${nc}\033[O\r"
+
+			elif [[ ${actualsize} -ge 1000024 ]]; then
+				echo -en "\n${orange}Actual size of file:${nc} ${cyan}${actualSize}TB${nc}\033[O\r"
+
+			fi
+
+		# If verbose mode is off and colors are on
+		elif [[ ${verbose} -ne 1 && ${no_color} -ne 1 ]] ; then
+			echo -en "${orange}Actual size of file:${nc} ${cyan}${actualSize}MB${nc}\033[O\r"
+
+			if [[ ${actualSize} -ge 1024 ]] ; then
+				echo -en "${orange}Actual size of file:${nc} ${cyan}${actualSize}GB${nc}\033[O\r"
+
+			elif [[ ${actualsize} -ge 1000024 ]]; then
+				echo -en "${orange}Actual size of file:${nc} ${cyan}${actualSize}TB${nc}\033[O\r"
+
+			fi
+
+		# If verbose mode is off and colors are off
+		elif [[ ${verbose} -ne 1 && ${no_color} -eq 1 ]] ; then
+			echo -en "Actual size of file: ${actualSize}MB\033[O\r"
+
+			if [[ ${actualSize} -ge 1024 ]] ; then
+				echo -en "Actual size of file: ${actualSize}GB\033[O\r"
+
+			elif [[ ${actualsize} -ge 1000024 ]]; then
+				echo -en "Actual size of file: ${actualSize}TB\033[O\r"
+
+			fi
 
 		fi
 
@@ -126,11 +167,11 @@ function _dnsgen() {
 
 			if [[ ${no_color} -eq 1 ]] ; then
 				echo -e "\nMax file size reached!\n"
-				exit
+				break
 
 			elif [[ ${no_color} -ne 1 ]] ; then
 				echo -e "${orange}\nMax file size reached!\n${nc}"
-				exit
+				break
 
 			fi
 
@@ -146,10 +187,17 @@ function _dnsgen() {
 
 	done
 
+	# If user uses the -u flag, sort alterations file at the end
+	if [[ ${unique} -eq 1 ]] ; then
+		sort -u ${o} -o ${o}
+		echo -e "$(wc -l ${o}) unique alterations."
+
+	fi
+
 }
 
 # Set command line options
-while getopts ":f:o:s:c:hvnc" options; do
+while getopts ":f:o:s:c:hvnuV" options; do
 	case "${options}" in
 		# File with domains
 		f)	
@@ -179,6 +227,20 @@ while getopts ":f:o:s:c:hvnc" options; do
 		# Turn off colors
 		n)
 			no_color=1
+			;;
+
+		# Uniquely sort files
+		u)
+			unique=1
+			;;
+
+		V)
+			echo -e "\n"
+			echo -e "\t${orange}Author:${nc} ${cyan}Matthew Greer${nc}"
+			echo -e "\t${orange}Github:${nc} ${cyan}https://github.com/DFC302${nc}"
+			echo -e "\t${orange}Version:${nc} ${cyan}1.1.1${nc}"
+			echo -e "\n"
+			exit
 			;;
 
 		# Handle everything else
@@ -235,4 +297,3 @@ elif [[ ${f} && ${o} && ${s} ]] ; then
 	_dnsgen
 
 fi
-			
