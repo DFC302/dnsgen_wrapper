@@ -41,6 +41,17 @@ bash dnsgen_wrapper.sh -f [file with domains] -o [output file] -s [max size limi
 -v [turn on verbose mode] || -n [turn off color mode] || -u [uniquely sort files]
 ```
 
+```
+-v
+``` 
+To display errors and alterations.
+
+---------------------
+
+```
+-u
+```
+This flag will attempt to sort the alterations file. It is important to note that if your file is bigger than half of your free space, it will fail to sort. For example, if you have 30GB hard drive space available, you should set your file to stop at 14500. Why? Because it will more than likely go over 14500 by a couple KB or MB and you will need the size of the alterations file in free space to properly sort the alterations file.
 ### Display help menu
 ```
 bash dnsgen_wrapper.sh -h
