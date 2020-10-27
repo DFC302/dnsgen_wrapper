@@ -116,49 +116,20 @@ function _dnsgen() {
 		if [[ ${verbose} -eq 1 && ${no_color} -eq 1 ]] ; then
 			echo -en "\nActual size of file: ${actualSize}MB\033[0/r"
 
-			if [[ ${actualSize} -ge 1024 ]] ; then
-				echo -en "\nActual size of file: ${actualSize}GB\033[O\r"
-
-			elif [[ ${actualsize} -ge 1000024 ]]; then
-				echo -en "\nActual size of file: ${actualSize}TB\033[O\r"
-
-			fi
 
 		# If verbose mode is on and colors on
 		elif [[ ${verbose} -eq 1 && ${no_color} -ne 1 ]] ; then
 			echo -en "\n${orange}Actual size of file:${nc} ${cyan}${actualSize}MB${nc}\033[O\r"
 
-			if [[ ${actualSize} -ge 1024 ]] ; then
-				echo -en "\n${orange}Actual size of file:${nc} ${cyan}${actualSize}GB${nc}\033[O\r"
-
-			elif [[ ${actualsize} -ge 1000024 ]]; then
-				echo -en "\n${orange}Actual size of file:${nc} ${cyan}${actualSize}TB${nc}\033[O\r"
-
-			fi
-
 		# If verbose mode is off and colors are on
 		elif [[ ${verbose} -ne 1 && ${no_color} -ne 1 ]] ; then
 			echo -en "${orange}Actual size of file:${nc} ${cyan}${actualSize}MB${nc}\033[O\r"
 
-			if [[ ${actualSize} -ge 1024 ]] ; then
-				echo -en "${orange}Actual size of file:${nc} ${cyan}${actualSize}GB${nc}\033[O\r"
-
-			elif [[ ${actualsize} -ge 1000024 ]]; then
-				echo -en "${orange}Actual size of file:${nc} ${cyan}${actualSize}TB${nc}\033[O\r"
-
-			fi
 
 		# If verbose mode is off and colors are off
 		elif [[ ${verbose} -ne 1 && ${no_color} -eq 1 ]] ; then
 			echo -en "Actual size of file: ${actualSize}MB\033[O\r"
 
-			if [[ ${actualSize} -ge 1024 ]] ; then
-				echo -en "Actual size of file: ${actualSize}GB\033[O\r"
-
-			elif [[ ${actualsize} -ge 1000024 ]]; then
-				echo -en "Actual size of file: ${actualSize}TB\033[O\r"
-
-			fi
 
 		fi
 
@@ -297,3 +268,4 @@ elif [[ ${f} && ${o} && ${s} ]] ; then
 	_dnsgen
 
 fi
+			
