@@ -56,3 +56,22 @@ This flag will attempt to sort the alterations file. It is important to note tha
 ```
 bash dnsgen_wrapper.sh -h
 ```
+
+# See where current file size is at:
+
+To see where the current file size is at:
+```
+ctrl+c
+```
+will breifly display the file size of the alterations file in MB, on most systems. WARNING: This may stop the program as well.
+
+# To stop the program:
+
+To stop the alterations before the file size is met:
+```
+CTRL+z.
+```
+
+# Tested
+
+Tested on Ubuntu Server 21
